@@ -18,7 +18,7 @@ const BigImg = styled.img`
   width: 450px;
   height: 450px;
 `;
-const listWrapper = styled.div`
+const ListWrapper = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
@@ -38,4 +38,4 @@ const ItemWrapper = styled.div`
     }
   }
 `;
-export { Title, BigImg, listWrapper, ItemWrapper, GlobalStyle };
+export { Title, BigImg, ListWrapper, ItemWrapper, GlobalStyle };
