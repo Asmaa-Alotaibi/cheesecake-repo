@@ -6,6 +6,31 @@ body{
   background-color:${(props) => props.theme.backgroundColor};
 }
 `;
+const GoBackButton = styled.button`
+  font-size: 1em;
+  margin: 1.25em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  color: ${(props) => props.theme.mainColor};
+  background-color: ${(props) => props.theme.backgroundColor};
+`;
+const DetailWrapper = styled.div`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  img {
+    width: 30%;
+    float: left;
+  }
+
+  p {
+    vertical-align: middle;
+  }
+`;
+const DeleteButtonStyled = styled.p`
+  color: ${(props) => props.theme.red};
+`;
 const SearchBarStyled = styled.input`
   padding: 0.5rem;
   margin: 1rem auto;
@@ -54,6 +79,9 @@ const ItemWrapper = styled.div`
 `;
 export {
   GlobalStyle,
+  GoBackButton,
+  DeleteButtonStyled,
+  DetailWrapper,
   SearchBarStyled,
   ThemeButton,
   Title,
