@@ -1,9 +1,10 @@
 import { useState } from "react";
-import photo1 from "./Cheesecake.jpg";
 import items from "./item";
-
+import { Route, Switch } from "react-router";
+import { Link } from "react-router-dom";
+import Home from "./components/Home.js";
 //styles
-import { GlobalStyle, ThemeButton, Title, BigImg } from "./styles";
+import { GlobalStyle, ThemeButton } from "./styles";
 import { ThemeProvider } from "styled-components";
 //components
 import ItemList from "./components/ItemList";
@@ -36,34 +37,29 @@ function App() {
   const toggleTheme = () =>
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
 
-  const [item, setItem] = useState(null);
-
-  const setView = () => {
-    if (item)
-      return (
-        <ItemDetail
-          cakeObject={item}
-          setItem={setItem}
-          deleteitem={deleteitem}
-        />
-      );
-    else
-      return (
-        <ItemList items={_items} setItem={setItem} deleteitem={deleteitem} />
-      );
-  };
   return (
     <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
       <ThemeButton onClick={toggleTheme}>
         {currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>
-      <div>
-        <title>CheeseCake Shop</title>
-        <Title>Yammy CheeseCake just for you...</Title>
-        <BigImg src={photo1} alt="cheesecake shop" />
-      </div>
-      {setView()}
+
+      <Link to="/List" style={{ margin: 10, float: "right" }}>
+        cheeseCakes
+      </Link>
+
+      <Switch>
+        <Route path="/List/:cheeseCakeeId">
+          <ItemDetail items={_items} deleteitem={deleteitem} />
+        </Route>
+        <Route path="/List">
+          <ItemList items={_items} deleteitem={deleteitem} />
+        </Route>
+
+        <Route exact path="/">
+          <Home />
+        </Route>
+      </Switch>
     </ThemeProvider>
   );
 }

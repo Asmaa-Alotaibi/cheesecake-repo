@@ -1,4 +1,4 @@
-import items from "../item";
+//import items from "../item";
 import { useState } from "react";
 //styles
 import { ListWrapper } from "../styles";

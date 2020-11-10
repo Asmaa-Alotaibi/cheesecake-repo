@@ -1,14 +1,16 @@
 import React from "react";
-import items from "../item";
+//import items from "../item";
 import { GoBackButton, DetailWrapper } from "../styles";
 import DeleteButton from "./buttons/DeleteButton";
+import { useParams } from "react-router-dom";
 
 const ItemDetail = (props) => {
-  const cakeObject = props.cakeObject;
+  //const cakeObject = props.cakeObject;
+  const cheeseCakeeId = useParams().cheeseCakeeId;
+  const cakeObject = props.items.find((cake) => cake.id === +cheeseCakeeId);
 
   const handleDelete = (itemId) => {
     props.deleteitem(itemId);
-    props.setItem();
   };
 
   return (
