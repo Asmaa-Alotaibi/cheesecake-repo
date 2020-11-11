@@ -1,13 +1,13 @@
-//import items from "../item";
 import { ItemWrapper } from "../styles";
 import DeleteButton from "./buttons/DeleteButton";
-import { Link } from "react";
+import { Link } from "react-router-dom";
+
 const SingleItem = (props) => {
   const cake = props.cake;
 
   return (
     <ItemWrapper>
-      <Link to={`/cheeseCakeList/${cake.id}`}>
+      <Link to={`/List/${cake.id}`}>
         <img src={cake.imag} alt={cake.name} />
       </Link>
       <p>{cake.name}</p>

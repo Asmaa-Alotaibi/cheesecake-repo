@@ -7,8 +7,8 @@ import Home from "./components/Home.js";
 import { GlobalStyle, ThemeButton } from "./styles";
 import { ThemeProvider } from "styled-components";
 //components
-import ItemList from "./components/ItemList";
-import ItemDetail from "./components/ItemDetail";
+import ItemList from "./components/ItemList.js";
+import ItemDetail from "./components/ItemDetail.js";
 
 const theme = {
   light: {
@@ -40,23 +40,22 @@ function App() {
   return (
     <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
+      <Link to="/list" style={{ margin: 10, float: "right" }}>
+        cheeseCakes
+      </Link>
       <ThemeButton onClick={toggleTheme}>
         {currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>
 
-      <Link to="/List" style={{ margin: 10, float: "right" }}>
-        cheeseCakes
-      </Link>
-
       <Switch>
-        <Route path="/List/:cheeseCakeeId">
+        <Route path="/list/:cheeseCakeeId">
           <ItemDetail items={_items} deleteitem={deleteitem} />
         </Route>
-        <Route path="/List">
+        <Route path="/list">
           <ItemList items={_items} deleteitem={deleteitem} />
         </Route>
 
-        <Route exact path="/">
+        <Route path="/">
           <Home />
         </Route>
       </Switch>

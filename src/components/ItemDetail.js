@@ -15,9 +15,7 @@ const ItemDetail = (props) => {
 
   return (
     <>
-      <GoBackButton onClick={() => props.setItem(null)}>
-        Cheescake List
-      </GoBackButton>
+      <GoBackButton>Cheescake List</GoBackButton>
       <DetailWrapper>
         <h1> {cakeObject.name}</h1>
         <img src={cakeObject.imag} alt={cakeObject.name} />

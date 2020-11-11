@@ -12,12 +12,7 @@ const ItemList = (props) => {
   const itemList = props.items //retrive only the one that match the query
     .filter((e) => e.name.toLocaleLowerCase().includes(query))
     .map((e) => (
-      <SingleItem
-        cake={e}
-        deleteitem={props.deleteitem}
-        setItem={props.setItem}
-        key={e.id}
-      />
+      <SingleItem cake={e} deleteitem={props.deleteitem} key={e.id} />
     ));
 
   return (
