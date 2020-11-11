@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import { Link, NavLink } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
 body{
@@ -39,7 +40,7 @@ const SearchBarStyled = styled.input`
 `;
 const ThemeButton = styled.button`
   font-size: 1em;
-  margin: 1.25em;
+
   padding: 0.25em 1em;
   border-radius: 3px;
   background-color: ${(props) => props.theme.mainColor};
@@ -77,7 +78,22 @@ const ItemWrapper = styled.div`
     }
   }
 `;
+const Logo = styled(Link)`
+  padding: 0.75em;
+  img {
+    width: 10rem;
+  }
+`;
+const NavItem = styled(NavLink)`
+  padding: 0.1em 1em;
+  color: ${(props) => props.theme.backgroundColor};
+  &.active {
+    background-color: ${(props) => props.theme.pink};
+  }
+`;
 export {
+  NavItem,
+  Logo,
   GlobalStyle,
   GoBackButton,
   DeleteButtonStyled,

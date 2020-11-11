@@ -1,14 +1,16 @@
 import { useState } from "react";
 import items from "./item";
 import { Route, Switch } from "react-router";
-import { Link } from "react-router-dom";
+
 import Home from "./components/Home.js";
+
 //styles
-import { GlobalStyle, ThemeButton } from "./styles";
+import { GlobalStyle } from "./styles";
 import { ThemeProvider } from "styled-components";
 //components
 import ItemList from "./components/ItemList.js";
 import ItemDetail from "./components/ItemDetail.js";
+import NavBar from "./components/NavBar";
 
 const theme = {
   light: {
@@ -40,15 +42,10 @@ function App() {
   return (
     <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
-      <Link to="/list" style={{ margin: 10, float: "right" }}>
-        cheeseCakes
-      </Link>
-      <ThemeButton onClick={toggleTheme}>
-        {currentTheme === "light" ? "Dark" : "Light"} Mode
-      </ThemeButton>
+      <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
 
       <Switch>
-        <Route path="/list/:cheeseCakeeId">
+        <Route path="/list/:cheeseCakeeSlug">
           <ItemDetail items={_items} deleteitem={deleteitem} />
         </Route>
         <Route path="/list">
