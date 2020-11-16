@@ -5,22 +5,24 @@ import { ListWrapper } from "../styles";
 //components
 import SingleItem from "./SingleItem";
 import SearchBar from "./SearchBar";
+import AddButton from "../components/buttons/AddButton";
+import itemStore from "../stores/itemStore";
+import { observer } from "mobx-react";
 
-const ItemList = (props) => {
+const ItemList = ({ deleteitem, createItem }) => {
   const [query, setQuery] = useState(""); // to save whats written in the input box
 
-  const itemList = props.items //retrive only the one that match the query
+  const itemList = itemStore.items //retrive only the one that match the query
     .filter((e) => e.name.toLocaleLowerCase().includes(query))
-    .map((e) => (
-      <SingleItem cake={e} deleteitem={props.deleteitem} key={e.id} />
-    ));
+    .map((e) => <SingleItem cake={e} key={e.id} />);
 
   return (
     <>
       <SearchBar setQuery={setQuery} />
-      <ListWrapper>{itemList}</ListWrapper>
+      <AddButton />
+      <ListWrapper className="row">{itemList}</ListWrapper>
     </>
   );
 };
 
-export default ItemList;
+export default observer(ItemList);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import items from "./item";
+
 import { Route, Switch } from "react-router";
 
 import Home from "./components/Home.js";
@@ -28,13 +28,6 @@ const theme = {
 };
 
 function App() {
-  const [_items, setItems] = useState(items);
-
-  const deleteitem = (itemId) => {
-    const updateitems = _items.filter((e) => e.id !== itemId);
-    setItems(updateitems);
-  };
-
   const [currentTheme, setCurrentTheme] = useState("light");
   const toggleTheme = () =>
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
@@ -46,10 +39,10 @@ function App() {
 
       <Switch>
         <Route path="/list/:cheeseCakeeSlug">
-          <ItemDetail items={_items} deleteitem={deleteitem} />
+          <ItemDetail />
         </Route>
         <Route path="/list">
-          <ItemList items={_items} deleteitem={deleteitem} />
+          <ItemList />
         </Route>
 
         <Route path="/">

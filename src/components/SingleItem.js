@@ -11,7 +11,7 @@ const SingleItem = ({ cake, deleteitem }) => {
       </Link>
       <p>{cake.name}</p>
       <p className="price-color">{cake.price} KD</p>
-      <DeleteButton itemId={cake.id} deleteitem={deleteitem} />
+      <DeleteButton itemId={cake.id} />
     </ItemWrapper>
   );
 };

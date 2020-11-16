@@ -3,12 +3,15 @@ import React from "react";
 import { DetailWrapper } from "../styles";
 import DeleteButton from "./buttons/DeleteButton";
 import { Redirect, useParams } from "react-router-dom";
+import ItemStore from "../stores/itemStore";
+import { observer } from "mobx-react";
 
-const ItemDetail = ({ items, deleteitem }) => {
-  //const cakeObject = props.cakeObject;
+const ItemDetail = () => {
   const cheeseCakeeSlug = useParams().cheeseCakeeSlug;
 
-  const cakeObject = items.find((cake) => cake.slug === cheeseCakeeSlug);
+  const cakeObject = ItemStore.items.find(
+    (cake) => cake.slug === cheeseCakeeSlug
+  );
 
   if (!cakeObject) return <Redirect to="/list" />;
 
@@ -19,10 +22,10 @@ const ItemDetail = ({ items, deleteitem }) => {
         <img src={cakeObject.imag} alt={cakeObject.name} />
         <p> {cakeObject.description}</p>
         <p>{cakeObject.price} KD</p>
-        <DeleteButton itemId={cakeObject.id} deleteitem={deleteitem} />
+        <DeleteButton itemId={cakeObject.id} />
       </DetailWrapper>
     </>
   );
 };
 
-export default ItemDetail;
+export default observer(ItemDetail);
