@@ -1,26 +1,49 @@
 import { makeObservable, observable, action } from "mobx";
 import slugify from "react-slugify";
-import items from "../item";
+
+import axios from "axios";
 
 class ItemStore {
-  items = items;
+  items = [];
 
   constructor() {
     makeObservable(this, {
       items: observable,
       createItem: action,
       deleteitem: action,
+      updateItem: action,
     });
   }
+  fetchItems = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/items");
+      this.items = response.data;
+    } catch (error) {
+      console.error("ItemStore -> fetchitems -> error", error);
+    }
+  };
+
   createItem = (newItem) => {
-    newItem.id = this.items[this.items.length - 1].id + 1;
-    newItem.slug = slugify(newItem.name);
+    newItem.id = this.items[this.items.length - 1].id + 1; //generate id dynamicly
+    newItem.slug = slugify(newItem.name); //generate slug dynamicly
     this.items.push(newItem);
   };
 
-  deleteitem = (itemId) => {
-    this.items = this.items.filter((e) => e.id !== itemId);
+  deleteitem = async (itemId) => {
+    try {
+      await axios.delete(`http://localhost:8000/items/${itemId}`);
+      this.items = this.items.filter((item) => item.id !== +itemId);
+    } catch (error) {
+      console.log("itemStore -> deleteitem -> error", error);
+    }
+  };
+  updateItem = (updatedItem) => {
+    console.log("itemStore -> updateItem -> updatedItem", updatedItem);
+    const item = this.items.find((item) => item.id === updatedItem.id);
+    for (const key in item) item[key] = updatedItem[key];
+    item.slug = slugify(item.name);
   };
 }
-const itemStore = new ItemStore();
+const itemStore = new ItemStore(); //new instance
+itemStore.fetchItems();
 export default itemStore;

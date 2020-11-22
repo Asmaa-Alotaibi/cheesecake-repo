@@ -1,10 +1,10 @@
 import React from "react";
 import Modal from "react-modal";
 import { useState } from "react";
-import { CreateButtonStyled } from "../../styles";
+import { CreateButtonStyled } from "../../styles.js";
 import ItemStore from "../../stores/itemStore";
 
-const ItemModal = ({ isOpen, closeModal }) => {
+const ItemModal = ({ isOpen, closeModal, oldItem }) => {
   const [item, setItem] = useState({
     name: "",
     price: 0,
@@ -21,18 +21,27 @@ const ItemModal = ({ isOpen, closeModal }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    ItemStore.createItem(item);
+    ItemStore[oldItem ? "updateItem" : "createItem"](item);
     closeModal();
   };
   const handelCancel = (event) => {
     event.preventDefault();
     closeModal();
   };
+  const [itemx, setItemx] = useState(
+    oldItem
+      ? oldItem
+      : {
+          name: "",
+          price: 0,
+          description: "",
+          image: "",
+        }
+  );
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={closeModal}
-      //    style={customStyles}
       contentLabel="Example Modal"
     >
       <h3>New CheeseCake</h3>
@@ -41,6 +50,7 @@ const ItemModal = ({ isOpen, closeModal }) => {
           <div className="col-6">
             <label>Name</label>
             <input
+              value={itemx.name}
               type="text"
               className="form-control"
               onChange={handleChange}
@@ -55,6 +65,7 @@ const ItemModal = ({ isOpen, closeModal }) => {
               className="form-control"
               onChange={handleChange}
               name="price"
+              value={itemx.price}
             />
           </div>
         </div>
@@ -65,6 +76,7 @@ const ItemModal = ({ isOpen, closeModal }) => {
             className="form-control"
             onChange={handleChange}
             name="description"
+            value={itemx.description}
           />
         </div>
         <div className="form-group">
@@ -74,10 +86,11 @@ const ItemModal = ({ isOpen, closeModal }) => {
             className="form-control"
             onChange={handleChange}
             name="imag"
+            value={itemx.imag}
           />
         </div>
         <CreateButtonStyled className="btn float-right">
-          Create
+          {oldItem ? "Update" : "Create"}
         </CreateButtonStyled>
         <CreateButtonStyled className="btn float-right" onClick={handelCancel}>
           Cancel

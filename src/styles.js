@@ -85,10 +85,11 @@ const Logo = styled(Link)`
   }
 `;
 const NavItem = styled(NavLink)`
-  padding: 0.1em 1em;
-  color: ${(props) => props.theme.backgroundColor};
+  padding: 0.25em 1em;
+  font-size: 1em;
+  color: ${(props) => props.theme.mainColor};
   &.active {
-    background-color: ${(props) => props.theme.pink};
+    color: ${(props) => props.theme.pink};
   }
 `;
 const CreateButtonStyled = styled.button`
@@ -100,7 +101,11 @@ const CreateButtonStyled = styled.button`
     background-color: ${(props) => props.theme.backgroundColor};
   }
 `;
+const UpdateButtonStyled = styled.p`
+  color: ${(props) => props.theme.pink};
+`;
 export {
+  UpdateButtonStyled,
   CreateButtonStyled,
   NavItem,
   Logo,

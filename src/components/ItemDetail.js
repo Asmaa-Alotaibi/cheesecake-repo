@@ -1,5 +1,4 @@
 import React from "react";
-//import items from "../item";
 import { DetailWrapper } from "../styles";
 import DeleteButton from "./buttons/DeleteButton";
 import { Redirect, useParams } from "react-router-dom";

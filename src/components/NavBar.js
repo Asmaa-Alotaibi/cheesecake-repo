@@ -27,7 +27,10 @@ const NavBar = (props) => {
       </button>
       <div className="collapse navbar-collapse" id="navbarText">
         <ul className="navbar-nav ml-auto">
-          <NavItem to="/list" style={{ margin: 10, float: "right" }}>
+          <NavItem
+            to="/list"
+            style={{ height: 25, margin: 10, float: "right" }}
+          >
             cheeseCakes
           </NavItem>
           <li className="nav-item active">
