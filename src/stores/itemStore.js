@@ -43,11 +43,20 @@ class ItemStore {
       console.log("itemStore -> deleteitem -> error", error);
     }
   };
-  updateItem = (updatedItem) => {
-    console.log("itemStore -> updateItem -> updatedItem", updatedItem);
-    const item = this.items.find((item) => item.id === updatedItem.id);
-    for (const key in item) item[key] = updatedItem[key];
-    item.slug = slugify(item.name);
+  updateItem = async (updatedItem) => {
+    // console.log("itemStore -> updateItem -> updatedItem", updatedItem);
+
+    try {
+      await axios.put(
+        `http://localhost:8000/items/${updatedItem.id}`,
+        updatedCookie
+      );
+      const item = this.items.find((item) => item.id === updatedItem.id);
+      for (const key in item) item[key] = updatedItem[key];
+      item.slug = slugify(item.name);
+    } catch (error) {
+      console.log("ItemStore -> updateItem -> error", error);
+    }
   };
 }
 const itemStore = new ItemStore(); //new instance
