@@ -23,10 +23,16 @@ class ItemStore {
     }
   };
 
-  createItem = (newItem) => {
-    newItem.id = this.items[this.items.length - 1].id + 1; //generate id dynamicly
-    newItem.slug = slugify(newItem.name); //generate slug dynamicly
-    this.items.push(newItem);
+  createItem = async (newItem) => {
+    // newItem.slug = slugify(newItem.name); //generate slug dynamicly
+    // this.items.push(newItem);
+    try {
+      const res = await axios.post("http://localhost:8000/items", newItem);
+      console.log("ItemStore -> createItem -> res", res);
+      this.items.push(res.data);
+    } catch (error) {
+      console.log("itemStore -> Createitem -> error", error);
+    }
   };
 
   deleteitem = async (itemId) => {

@@ -5,12 +5,16 @@ import { CreateButtonStyled } from "../../styles.js";
 import ItemStore from "../../stores/itemStore";
 
 const ItemModal = ({ isOpen, closeModal, oldItem }) => {
-  const [item, setItem] = useState({
-    name: "",
-    price: 0,
-    description: "",
-    imag: "",
-  });
+  const [item, setItem] = useState(
+    oldItem
+      ? oldItem
+      : {
+          name: "",
+          price: 0,
+          description: "",
+          image: "",
+        }
+  );
   // handle the change in the name field. Basically we will de-structure our cookie object and overwrite the name field:
   const handleChange = (event) => {
     setItem({
@@ -28,16 +32,7 @@ const ItemModal = ({ isOpen, closeModal, oldItem }) => {
     event.preventDefault();
     closeModal();
   };
-  const [itemx, setItemx] = useState(
-    oldItem
-      ? oldItem
-      : {
-          name: "",
-          price: 0,
-          description: "",
-          image: "",
-        }
-  );
+
   return (
     <Modal
       isOpen={isOpen}
@@ -50,7 +45,7 @@ const ItemModal = ({ isOpen, closeModal, oldItem }) => {
           <div className="col-6">
             <label>Name</label>
             <input
-              value={itemx.name}
+              value={item.name}
               type="text"
               className="form-control"
               onChange={handleChange}
@@ -65,7 +60,7 @@ const ItemModal = ({ isOpen, closeModal, oldItem }) => {
               className="form-control"
               onChange={handleChange}
               name="price"
-              value={itemx.price}
+              value={item.price}
             />
           </div>
         </div>
@@ -76,7 +71,7 @@ const ItemModal = ({ isOpen, closeModal, oldItem }) => {
             className="form-control"
             onChange={handleChange}
             name="description"
-            value={itemx.description}
+            value={item.description}
           />
         </div>
         <div className="form-group">
@@ -86,7 +81,7 @@ const ItemModal = ({ isOpen, closeModal, oldItem }) => {
             className="form-control"
             onChange={handleChange}
             name="imag"
-            value={itemx.imag}
+            value={item.imag}
           />
         </div>
         <CreateButtonStyled className="btn float-right">
