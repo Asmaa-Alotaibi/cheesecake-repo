@@ -8,7 +8,7 @@ const SingleItem = ({ cake }) => {
   return (
     <ItemWrapper>
       <Link to={`/List/${cake.slug}`}>
-        <img src={cake.imag} alt={cake.name} />
+        <img src={cake.image} alt={cake.name} />
       </Link>
       <p>{cake.name}</p>
       <p className="price-color">{cake.price} KD</p>

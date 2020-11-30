@@ -1,6 +1,5 @@
 import { makeObservable, observable, action } from "mobx";
 import slugify from "react-slugify";
-
 import axios from "axios";
 
 class ItemStore {
@@ -12,6 +11,7 @@ class ItemStore {
       createItem: action,
       deleteitem: action,
       updateItem: action,
+      fetchItems: action,
     });
   }
   fetchItems = async () => {
@@ -24,10 +24,11 @@ class ItemStore {
   };
 
   createItem = async (newItem) => {
-    // newItem.slug = slugify(newItem.name); //generate slug dynamicly
-    // this.items.push(newItem);
     try {
-      const res = await axios.post("http://localhost:8000/items", newItem);
+      const formData = new FormData();
+      for (const key in newItem) formData.append(key, newItem[key]);
+
+      const res = await axios.post("http://localhost:8000/items", formData);
       console.log("ItemStore -> createItem -> res", res);
       this.items.push(res.data);
     } catch (error) {
@@ -43,16 +44,22 @@ class ItemStore {
       console.log("itemStore -> deleteitem -> error", error);
     }
   };
-  updateItem = async (updatedItem) => {
-    // console.log("itemStore -> updateItem -> updatedItem", updatedItem);
 
+  updateItem = async (updatedItem) => {
     try {
+      const formData = new FormData();
+      for (const key in updatedItem) formData.append(key, updatedItem[key]);
+
       await axios.put(
         `http://localhost:8000/items/${updatedItem.id}`,
-        updatedCookie
+        formData
       );
+      //update in the frontend
       const item = this.items.find((item) => item.id === updatedItem.id);
       for (const key in item) item[key] = updatedItem[key];
+
+      item.image = URL.createObjectURL(updatedItem.image);
+
       item.slug = slugify(item.name);
     } catch (error) {
       console.log("ItemStore -> updateItem -> error", error);

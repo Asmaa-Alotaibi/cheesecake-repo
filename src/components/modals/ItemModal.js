@@ -16,6 +16,9 @@ const ItemModal = ({ isOpen, closeModal, oldItem }) => {
         }
   );
   // handle the change in the name field. Basically we will de-structure our cookie object and overwrite the name field:
+  const handleImage = (event) => {
+    setItem({ ...item, image: event.target.files[0] });
+  };
   const handleChange = (event) => {
     setItem({
       ...item,
@@ -77,11 +80,10 @@ const ItemModal = ({ isOpen, closeModal, oldItem }) => {
         <div className="form-group">
           <label>Image</label>
           <input
-            type="text"
+            type="file"
             className="form-control"
-            onChange={handleChange}
-            name="imag"
-            value={item.imag}
+            onChange={handleImage}
+            name="image"
           />
         </div>
         <CreateButtonStyled className="btn float-right">
