@@ -4,16 +4,9 @@ import { useState } from "react";
 import { CreateButtonStyled } from "../../styles.js";
 import ItemStore from "../../stores/itemStore";
 
-const ItemModal = ({ isOpen, closeModal, oldItem }) => {
+const ItemModal = ({ isOpen, closeModal, oldItem, bakery }) => {
   const [item, setItem] = useState(
-    oldItem
-      ? oldItem
-      : {
-          name: "",
-          price: 0,
-          description: "",
-          image: "",
-        }
+    oldItem ? oldItem : { name: "", price: 0, description: "", image: "" }
   );
   // handle the change in the name field. Basically we will de-structure our cookie object and overwrite the name field:
   const handleImage = (event) => {
@@ -28,7 +21,7 @@ const ItemModal = ({ isOpen, closeModal, oldItem }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    ItemStore[oldItem ? "updateItem" : "createItem"](item);
+    ItemStore[oldItem ? "updateItem" : "createItem"](item, bakery);
     closeModal();
   };
   const handelCancel = (event) => {
@@ -41,6 +34,7 @@ const ItemModal = ({ isOpen, closeModal, oldItem }) => {
       isOpen={isOpen}
       onRequestClose={closeModal}
       contentLabel="Example Modal"
+      bakery={bakery}
     >
       <h3>New CheeseCake</h3>
       <form onSubmit={handleSubmit}>

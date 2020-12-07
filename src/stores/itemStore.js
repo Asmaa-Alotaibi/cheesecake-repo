@@ -1,36 +1,41 @@
 import { makeObservable, observable, action } from "mobx";
 import slugify from "react-slugify";
-import axios from "axios";
+import instance from "./instance";
 
 class ItemStore {
   items = [];
-
+  loading = true;
   constructor() {
     makeObservable(this, {
       items: observable,
+      loading: observable,
       createItem: action,
       deleteitem: action,
       updateItem: action,
       fetchItems: action,
     });
   }
+  getItemById = (itemId) => this.items.find((item) => item.id === itemId);
+
   fetchItems = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/items");
+      const response = await instance.get("/items");
       this.items = response.data;
+      this.loading = false;
     } catch (error) {
       console.error("ItemStore -> fetchitems -> error", error);
     }
   };
 
-  createItem = async (newItem) => {
+  createItem = async (newItem, bakery) => {
     try {
       const formData = new FormData();
       for (const key in newItem) formData.append(key, newItem[key]);
 
-      const res = await axios.post("http://localhost:8000/items", formData);
+      const res = await instance.post(`/bakeries/${bakery.id}/items`, formData);
       console.log("ItemStore -> createItem -> res", res);
       this.items.push(res.data);
+      bakery.items.push({ id: res.data.id });
     } catch (error) {
       console.log("itemStore -> Createitem -> error", error);
     }
@@ -38,7 +43,7 @@ class ItemStore {
 
   deleteitem = async (itemId) => {
     try {
-      await axios.delete(`http://localhost:8000/items/${itemId}`);
+      await instance.delete(`/items/${itemId}`);
       this.items = this.items.filter((item) => item.id !== +itemId);
     } catch (error) {
       console.log("itemStore -> deleteitem -> error", error);
@@ -50,10 +55,7 @@ class ItemStore {
       const formData = new FormData();
       for (const key in updatedItem) formData.append(key, updatedItem[key]);
 
-      await axios.put(
-        `http://localhost:8000/items/${updatedItem.id}`,
-        formData
-      );
+      await instance.put(`/items/${updatedItem.id}`, formData);
       //update in the frontend
       const item = this.items.find((item) => item.id === updatedItem.id);
       for (const key in item) item[key] = updatedItem[key];

@@ -9,7 +9,7 @@ import AddButton from "../components/buttons/AddButton";
 import itemStore from "../stores/itemStore";
 import { observer } from "mobx-react";
 
-const ItemList = () => {
+const ItemList = ({ items }) => {
   const [query, setQuery] = useState(""); // to save whats written in the input box
 
   const itemList = itemStore.items //retrive only the one that match the query
