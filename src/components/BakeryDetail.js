@@ -1,5 +1,5 @@
 import { DetailWrapper } from "../styles";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import bakeryStore from "../stores/bakeryStore";
 import ItemList from "./ItemList";
 import AddButton from "./buttons/AddButton";
@@ -12,7 +12,10 @@ const BakeryDetail = () => {
     (_bakery) => _bakery.slug === bakerySlug
   );
   console.log("BakeryDetail -> bakery", bakery);
-  let items = bakery.items.map((item) => itemStore.getItemById(item.id));
+
+  const items = bakery.items.map((item) => itemStore.getItemById(item.id));
+  if (!bakery) return <Redirect to="/bakeries" />;
+
   return (
     <div className="row">
       <div className="container">
@@ -23,7 +26,7 @@ const BakeryDetail = () => {
         </DetailWrapper>
       </div>
       <div className="col-12">
-        <ItemList items={items} />
+        <ItemList items={items} bakery={bakery} />
       </div>
     </div>
   );

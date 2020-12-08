@@ -4,7 +4,7 @@ import UpdateButton from "./buttons/UpdateButton";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 
-const SingleItem = ({ cake }) => {
+const SingleItem = ({ cake, bakery }) => {
   return (
     <ItemWrapper>
       <Link to={`/List/${cake.slug}`}>

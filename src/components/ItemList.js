@@ -6,15 +6,14 @@ import { ListWrapper } from "../styles";
 import SingleItem from "./SingleItem";
 import SearchBar from "./SearchBar";
 import AddButton from "../components/buttons/AddButton";
-import itemStore from "../stores/itemStore";
 import { observer } from "mobx-react";
 
-const ItemList = ({ items }) => {
+const ItemList = ({ items, bakery }) => {
   const [query, setQuery] = useState(""); // to save whats written in the input box
-
-  const itemList = itemStore.items //retrive only the one that match the query
+  //retrive only the one that match the query
+  const itemList = items
     .filter((e) => e.name.toLocaleLowerCase().includes(query))
-    .map((e) => <SingleItem cake={e} key={e.id} />);
+    .map((e) => <SingleItem cake={e} key={e.id} bakery={bakery} />);
 
   return (
     <>

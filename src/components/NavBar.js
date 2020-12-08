@@ -3,6 +3,7 @@ import logo1 from "../lightlogo.png";
 import logo2 from "../darklogo.png";
 import { NavItem, Logo, ThemeButton } from "../styles";
 import SignupButton from "./buttons/SignupButton";
+import SigninButton from "./buttons/SigninButton";
 
 const NavBar = (props) => {
   return (
@@ -44,6 +45,7 @@ const NavBar = (props) => {
           </NavItem>
           <li className="nav-item active">
             <SignupButton />
+            <SigninButton />
             <ThemeButton onClick={props.toggleTheme}>
               {props.currentTheme === "light" ? "Dark" : "Light"} Mode
             </ThemeButton>
