@@ -1,9 +1,12 @@
 import React from "react";
 import logo1 from "../lightlogo.png";
 import logo2 from "../darklogo.png";
-import { NavItem, Logo, ThemeButton } from "../styles";
+import { NavItem, Logo, ThemeButton, UsernameStyled } from "../styles";
 import SignupButton from "./buttons/SignupButton";
 import SigninButton from "./buttons/SigninButton";
+import { FiLogOut } from "react-icons/fi";
+import authStore from "../stores/authStore";
+import { observer } from "mobx-react";
 
 const NavBar = (props) => {
   return (
@@ -32,7 +35,7 @@ const NavBar = (props) => {
           <NavItem
             className="nav-item"
             to="/bakeries"
-            style={{ height: 25, margin: 20, float: "right" }}
+            style={{ height: 25, margin: 10, float: "right" }}
           >
             Bakeries
           </NavItem>
@@ -44,8 +47,19 @@ const NavBar = (props) => {
             cheeseCakes
           </NavItem>
           <li className="nav-item active">
-            <SignupButton />
-            <SigninButton />
+            {authStore.user ? (
+              <>
+                <UsernameStyled>
+                  Hello, {authStore.user.username}
+                </UsernameStyled>
+                <FiLogOut onClick={authStore.signout} size="2em" color="red" />
+              </>
+            ) : (
+              <>
+                <SignupButton />
+                <SigninButton />
+              </>
+            )}
             <ThemeButton onClick={props.toggleTheme}>
               {props.currentTheme === "light" ? "Dark" : "Light"} Mode
             </ThemeButton>
@@ -55,4 +69,4 @@ const NavBar = (props) => {
     </nav>
   );
 };
-export default NavBar;
+export default observer(NavBar);

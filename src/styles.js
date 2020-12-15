@@ -112,7 +112,9 @@ export const AuthButtonStyled = styled.button`
   background-color: ${(props) => props.theme.pink};
   color: ${(props) => props.theme.backgroundColor};
 `;
-
+export const UsernameStyled = styled.p`
+  padding: 0.25em 1em;
+`;
 export {
   UpdateButtonStyled,
   CreateButtonStyled,
